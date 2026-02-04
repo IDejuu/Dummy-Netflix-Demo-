@@ -116,7 +116,7 @@
 
 <header>
   <h1>IDejuu Studio</h1>
-  <button>Sign In</button>
+  <button id="authBtn">Sign in / Sign up</button>
 </header>
 
 <section class="hero">
@@ -176,6 +176,17 @@
   </div>
 </div>
 
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Login</h3>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="handleAuth()" style="margin-top:12px">Submit</button>
+    <p style="text-align:center; font-size:12px; cursor:pointer" onclick="toggleMode()">Belum punya akun? Daftar</p>
+  </div>
+</div>
+
 <div class="footer">© 2026 IDejuu Studio · Simple & Elegant Streaming UI</div>
 
 <script>
@@ -230,6 +241,42 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeDetail();
   });
+  const authBtn = document.getElementById('authBtn');
+  const authModal = document.getElementById('authModal');
+  let mode = 'login';
+
+  authBtn.onclick = () => authModal.classList.add('active');
+
+  function toggleMode() {
+    mode = mode === 'login' ? 'register' : 'login';
+    document.getElementById('modalTitle').innerText = mode === 'login' ? 'Login' : 'Register';
+  }
+
+  function handleAuth() {
+    const user = username.value;
+    const pass = password.value;
+    if (!user || !pass) return alert('Lengkapi data');
+
+    if (mode === 'register') {
+      localStorage.setItem(user, pass);
+      alert('Register berhasil');
+      mode = 'login';
+      toggleMode();
+    } else {
+      if (localStorage.getItem(user) === pass) {
+        alert('Login sukses');
+        authBtn.innerText = 'Logout';
+        authBtn.onclick = () => location.reload();
+        authModal.classList.remove('active');
+      } else {
+        alert('Login gagal');
+      }
+    }
+  }
+
+  authModal.onclick = e => {
+    if (e.target === authModal) authModal.classList.remove('active');
+  };
 </script>
 
 </body>
