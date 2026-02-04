@@ -84,8 +84,15 @@
     }
 
     .modal-content {
-      background: #000; padding: 24px; border-radius: 12px; width: 420px; max-width: 90%;
-      transform: scale(0.85); animation: scaleUp 0.3s ease forwards;
+      background: #000;
+      padding: 20px;
+      border-radius: 12px;
+      width: 420px;
+      max-width: 92vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      transform: scale(0.85);
+      animation: scaleUp 0.3s ease forwards;
     }
 
     @keyframes scaleUp {
@@ -155,12 +162,16 @@
   </div>
 </section>
 
-<div class="modal" id="detailModal">
+<div class="modal" id="detailModal" onclick="handleBackdropClick(event)">
   <div class="modal-content">
     <img id="detailPoster" class="modal-poster" />
     <h3 id="detailTitle"></h3>
     <p id="detailInfo" style="font-size:13px;color:var(--muted)"></p>
     <p id="detailSynopsis" style="font-size:14px;line-height:1.6"></p>
+    <div style="display:flex; gap:10px; margin-top:16px;">
+      <button style="flex:1; background: var(--primary); border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">▶ Play</button>
+      <button style="flex:1; background:#333; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">＋ My List</button>
+    </div>
     <button onclick="closeDetail()" style="margin-top:12px">Close</button>
   </div>
 </div>
@@ -209,6 +220,16 @@
   function closeDetail() {
     document.getElementById('detailModal').classList.remove('active');
   }
+
+  function handleBackdropClick(e) {
+    if (e.target.id === 'detailModal') {
+      closeDetail();
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDetail();
+  });
 </script>
 
 </body>
