@@ -22,153 +22,99 @@ NOTE:
       --muted: #b3b3b3;
     }
 
-    * {
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+    * { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; }
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-    }
+    body { margin: 0; background: var(--bg); color: var(--text); }
 
-    /* NAVBAR */
     header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 24px; position: sticky; top: 0;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); z-index: 10;
+    }
+
+    header h1 { color: var(--primary); margin: 0; font-size: 22px; }
+    header button { background: var(--primary); border: none; color: #fff; padding: 8px 16px; border-radius: 4px; }
+
+    .hero {
+      min-height: 70vh; background: linear-gradient(to top, #141414, rgba(0,0,0,0.2)),
+      url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4') center/cover;
+      display: flex; align-items: flex-end; padding: 32px;
+    }
+
+    .hero-content h2 { font-size: 42px; margin-bottom: 12px; }
+    .hero-content p { color: var(--muted); max-width: 520px; }
+
+    .section { padding: 24px; }
+    .section h3 { margin-bottom: 12px; }
+
+    .movie-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 32px;
-      position: sticky;
-      top: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
-      z-index: 10;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 10px;
     }
 
-    header h1 {
-      color: var(--primary);
-      margin: 0;
-      font-size: 24px;
-      cursor: pointer;
+    .movie-row::-webkit-scrollbar {
+      height: 6px;
     }
-
-    header button {
-      background: var(--primary);
-      border: none;
-      color: white;
-      padding: 8px 16px;
-      cursor: pointer;
+    .movie-row::-webkit-scrollbar-thumb {
+      background: #333;
       border-radius: 4px;
     }
 
-    /* HERO */
-    .hero {
-      height: 60vh;
-      background: url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4') center/cover;
-      display: flex;
-      align-items: flex-end;
-      padding: 40px;
+    .slider-wrapper {
+      position: relative;
     }
 
-    .hero-content {
-      max-width: 600px;
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      border: none;
+      color: white;
+      font-size: 24px;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 5;
     }
 
-    .hero h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
+    .slider-btn.left { left: 0; }
+    .slider-btn.right { right: 0; }
 
-    .hero p {
-      color: var(--muted);
-    }
-
-    /* MOVIE LIST */
-    .section {
-      padding: 24px 32px;
-    }
-
-    .section h3 {
-      margin-bottom: 16px;
-    }
-
-    .movie-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 16px;
+    .movie-card {
+      min-width: 140px;
+      flex-shrink: 0;
+      background: var(--card);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
 
     .movie-card {
-      background: var(--card);
-      border-radius: 6px;
-      overflow: hidden;
-      transition: transform 0.3s;
-      cursor: pointer;
+      background: var(--card); border-radius: 8px; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
 
-    .movie-card:hover {
-      transform: scale(1.05);
+    .movie-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+    .movie-card img { width: 100%; height: 210px; object-fit: cover; }
+    .movie-card .info { padding: 10px; font-size: 13px; text-align: center; }
+
+    .highlight {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center;
+      background: linear-gradient(135deg, #1f1f1f, #141414); border-radius: 12px; padding: 20px;
     }
 
-    .movie-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
+    .highlight img { width: 100%; border-radius: 10px; }
+    .highlight h4 { margin-top: 0; }
 
-    .movie-card .info {
-      padding: 8px;
-      font-size: 14px;
-    }
+    .footer { padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
 
-    /* AUTH MODAL */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: #000;
-      padding: 24px;
-      width: 320px;
-      border-radius: 6px;
-    }
-
-    .modal-content h3 {
-      text-align: center;
-    }
-
-    .modal-content input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      background: #333;
-      border: none;
-      color: white;
-    }
-
-    .modal-content button {
-      width: 100%;
-      margin-top: 12px;
-    }
-
-    /* RESPONSIVE */
     @media (max-width: 768px) {
-      header {
-        padding: 16px;
-      }
-
-      .hero h2 {
-        font-size: 28px;
-      }
+      .hero-content h2 { font-size: 28px; }
+      .highlight { grid-template-columns: 1fr; }
+      .movie-card img { height: 180px; }
     }
   </style>
 </head>
@@ -176,31 +122,45 @@ NOTE:
 
 <header>
   <h1>IDejuu Studio</h1>
-  <button id="authBtn">Sign in/Sign up</button>
+  <button>Sign In</button>
 </header>
 
 <section class="hero">
   <div class="hero-content">
-    <h2>Film & Series Terbaru</h2>
-    <p>Nikmati pengalaman menonton premium ala Netflix bersama IDejuu Studio.</p>
+    <h2>Film & Series Pilihan</h2>
+    <p>Streaming film dan serial terbaik dengan tampilan elegan, simple, dan nyaman di semua perangkat.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="highlight">
+    <div>
+      <h4>Featured Movie</h4>
+      <p class="muted">Rekomendasi film spesial minggu ini dengan rating tinggi dan visual sinematik.</p>
+    </div>
+    <img src="https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg" />
   </div>
 </section>
 
 <section class="section">
   <h3>Trending Now</h3>
-  <div class="movie-row" id="movieList"></div>
+  <div class="slider-wrapper">
+    <button class="slider-btn left" onclick="slide('movieList', -1)">&#10094;</button>
+    <div class="movie-row" id="movieList"></div>
+    <button class="slider-btn right" onclick="slide('movieList', 1)">&#10095;</button>
+  </div>
 </section>
 
-<!-- AUTH MODAL -->
-<div class="modal" id="authModal">
-  <div class="modal-content">
-    <h3 id="modalTitle">Login</h3>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="handleAuth()">Submit</button>
-    <p style="text-align:center; font-size:12px; cursor:pointer" onclick="toggleMode()">Belum punya akun? Daftar</p>
+<section class="section">
+  <h3>Popular Movies</h3>
+  <div class="slider-wrapper">
+    <button class="slider-btn left" onclick="slide('movieList2', -1)">&#10094;</button>
+    <div class="movie-row" id="movieList2"></div>
+    <button class="slider-btn right" onclick="slide('movieList2', 1)">&#10095;</button>
   </div>
-</div>
+</section>
+
+<div class="footer">© 2026 IDejuu Studio · Simple & Elegant Streaming UI</div>
 
 <script>
   const movies = [
@@ -208,57 +168,43 @@ NOTE:
     { title: 'Stranger Things', img: 'https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg' },
     { title: 'Money Heist', img: 'https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg' },
     { title: 'Extraction', img: 'https://image.tmdb.org/t/p/w500/wlfDxbGEsW58vGhFljKkcR5IxDj.jpg' },
-    { title: 'The Witcher', img: 'https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg' }
+    { title: 'The Witcher', img: 'https://image.tmdb.org/t/p/w500/7vjaCdMw15FEbXyLQTVa04URsPm.jpg' },
+    { title: 'Interstellar', img: 'https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg' },
+    { title: 'Inception', img: 'https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg' },
+    { title: 'Avatar', img: 'https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg' },
+    { title: 'Dune', img: 'https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg' },
+    { title: 'The Batman', img: 'https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg' },
+    { title: 'Oppenheimer', img: 'https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg' },
+    { title: 'Tenet', img: 'https://image.tmdb.org/t/p/w500/aCIFMriQh8rvhxpN1IWGgvH0Tlg.jpg' },
+    { title: 'Breaking Bad', img: 'https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg' },
+    { title: 'Peaky Blinders', img: 'https://image.tmdb.org/t/p/w500/bGZn5RVzMMXju4ev7xbl1aLdXqq.jpg' },
+    { title: 'John Wick', img: 'https://image.tmdb.org/t/p/w500/fZPSd91yGE9fCcCe6OoQr6E3Bev.jpg' },
+    { title: 'Gladiator', img: 'https://image.tmdb.org/t/p/w500/pRn3TJHbAqCAO5VEr9VJv8t7KpE.jpg' }
   ];
 
-  const movieList = document.getElementById('movieList');
-  movies.forEach(m => {
+  const list1 = document.getElementById('movieList');
+  const list2 = document.getElementById('movieList2');
+
+  movies.slice(0,5).forEach(m => createCard(m, list1));
+  movies.slice(3).forEach(m => createCard(m, list2));
+
+  function slide(id, dir) {
+    const row = document.getElementById(id);
+    const cardWidth = row.querySelector('.movie-card')?.offsetWidth || 150;
+    row.scrollLeft += dir * cardWidth * 3;
+  }
+
+  function createCard(m, target) {
     const card = document.createElement('div');
     card.className = 'movie-card';
     card.innerHTML = `<img src="${m.img}" /><div class="info">${m.title}</div>`;
-    movieList.appendChild(card);
-  });
-
-  const modal = document.getElementById('authModal');
-  const authBtn = document.getElementById('authBtn');
-  let mode = 'login';
-
-  authBtn.onclick = () => modal.classList.add('active');
-
-  function toggleMode() {
-    mode = mode === 'login' ? 'register' : 'login';
-    document.getElementById('modalTitle').innerText = mode === 'login' ? 'Login' : 'Register';
+    target.appendChild(card);
   }
-
-  function handleAuth() {
-    const user = username.value;
-    const pass = password.value;
-
-    if (!user || !pass) return alert('Lengkapi data');
-
-    if (mode === 'register') {
-      localStorage.setItem(user, pass);
-      alert('Register berhasil');
-      mode = 'login';
-    } else {
-      if (localStorage.getItem(user) === pass) {
-        alert('Login sukses');
-        authBtn.innerText = 'Logout';
-        authBtn.onclick = () => location.reload();
-        modal.classList.remove('active');
-      } else {
-        alert('Login gagal');
-      }
-    }
-  }
-
-  modal.onclick = e => {
-    if (e.target === modal) modal.classList.remove('active');
-  };
 </script>
 
 </body>
 </html>
+
 
 
 
